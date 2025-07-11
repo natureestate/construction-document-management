@@ -54,6 +54,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -76,5 +86,40 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
+    // เพิ่ม sidebar utilities
+    function ({ addUtilities }) {
+      const sidebarUtilities = {
+        '.w-\\(--sidebar-width\\)': {
+          width: 'var(--sidebar-width)',
+        },
+        '.w-\\(--sidebar-width-icon\\)': {
+          width: 'var(--sidebar-width-icon)',
+        },
+        '.size-8\\!': {
+          width: '2rem !important',
+          height: '2rem !important',
+        },
+        '.group-data-\\[collapsible\\=icon\\]\\:size-8\\!': {
+          '.group[data-collapsible="icon"] &': {
+            width: '2rem !important',
+            height: '2rem !important',
+          },
+        },
+        '.group-data-\\[collapsible\\=icon\\]\\:p-0\\!': {
+          '.group[data-collapsible="icon"] &': {
+            padding: '0 !important',
+          },
+        },
+        '.group-data-\\[collapsible\\=icon\\]\\:p-2\\!': {
+          '.group[data-collapsible="icon"] &': {
+            padding: '0.5rem !important',
+          },
+        },
+      }
+      addUtilities(sidebarUtilities)
+    },
+  ],
 } 

@@ -239,15 +239,15 @@ export default function ContractorContractForm() {
   if (error) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" size="icon" asChild>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <Button variant="outline" size="icon" asChild className="self-start">
             <Link to="/contractor-contracts">
               <ArrowLeft className="h-4 w-4" />
             </Link>
           </Button>
-          <div>
-            <h1 className="text-3xl font-bold">สร้าง/แก้ไขสัญญาจ้างช่าง</h1>
-            <p className="text-muted-foreground mt-2">ข้อมูลสัญญาจ้างช่างรับเหมา</p>
+          <div className="flex-1">
+            <h1 className="text-2xl sm:text-3xl font-bold">สร้าง/แก้ไขสัญญาจ้างช่าง</h1>
+            <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">ข้อมูลสัญญาจ้างช่างรับเหมา</p>
           </div>
         </div>
 
@@ -275,26 +275,26 @@ export default function ContractorContractForm() {
   const totalCost = form.watch('totalCost') || 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-center space-x-4">
-        <Button variant="outline" size="icon" asChild>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <Button variant="outline" size="icon" asChild className="self-start">
           <Link to="/contractor-contracts">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <div>
-          <h1 className="text-3xl font-bold">
+        <div className="flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold">
             {isEditing ? 'แก้ไขสัญญาจ้างช่าง' : 'สร้างสัญญาจ้างช่างใหม่'}
           </h1>
-          <p className="text-muted-foreground mt-2">
+          <p className="text-muted-foreground mt-1 sm:mt-2 text-sm sm:text-base">
             {isEditing ? 'แก้ไขข้อมูลสัญญาจ้างช่างในระบบ' : 'สร้างสัญญาจ้างช่างรับเหมาใหม่'}
           </p>
         </div>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-4 sm:space-y-6">
           {/* ข้อมูลพื้นฐาน */}
           <Card>
             <CardHeader>
@@ -307,7 +307,7 @@ export default function ContractorContractForm() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* ชื่อสัญญา */}
                 <FormField
                   control={form.control as any}
@@ -388,7 +388,7 @@ export default function ContractorContractForm() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* ลูกค้า */}
                 <FormField
                   control={form.control as any}
@@ -406,15 +406,17 @@ export default function ContractorContractForm() {
                           {customersLoading ? (
                             <SelectItem value="" disabled>กำลังโหลดข้อมูลลูกค้า...</SelectItem>
                           ) : customers.length === 0 ? (
-                            <SelectItem value="" disabled>ไม่มีข้อมูลลูกค้า</SelectItem>
+                            <SelectItem value="" disabled>
+                              ไม่มีข้อมูลลูกค้า - กรุณาสร้างลูกค้าใหม่ก่อน
+                            </SelectItem>
                           ) : (
                             customers.map((customer) => (
                               <SelectItem key={customer.id} value={customer.id}>
-                                <div className="flex items-center space-x-2">
-                                  <span>{customer.name}</span>
-                                  <Badge variant="outline" className="text-xs">
+                                <div className="flex items-center justify-between w-full min-w-0">
+                                  <span className="truncate flex-1">{customer.name}</span>
+                                  <span className="text-xs text-muted-foreground ml-2 shrink-0 bg-muted px-2 py-0.5 rounded">
                                     {customer.type === 'individual' ? 'บุคคล' : 'นิติบุคคล'}
-                                  </Badge>
+                                  </span>
                                 </div>
                               </SelectItem>
                             ))
@@ -443,24 +445,26 @@ export default function ContractorContractForm() {
                           {contractorsLoading ? (
                             <SelectItem value="" disabled>กำลังโหลดข้อมูลช่าง...</SelectItem>
                           ) : contractors.filter(c => c.status === 'active').length === 0 ? (
-                            <SelectItem value="" disabled>ไม่มีช่างที่ใช้งานได้</SelectItem>
+                            <SelectItem value="" disabled>
+                              ไม่มีช่างที่ใช้งานได้ - กรุณาสร้างข้อมูลช่างใหม่ก่อน
+                            </SelectItem>
                           ) : (
                             contractors
                               .filter(c => c.status === 'active')
                               .map((contractor) => (
                                 <SelectItem key={contractor.id} value={contractor.id}>
-                                  <div className="flex items-center space-x-2">
-                                    <span>{contractor.name}</span>
-                                    <div className="flex space-x-1">
+                                  <div className="flex items-center justify-between w-full min-w-0">
+                                    <span className="truncate flex-1">{contractor.name}</span>
+                                    <div className="flex space-x-1 ml-2 shrink-0">
                                       {contractor.specialty.slice(0, 2).map(spec => (
-                                        <Badge key={spec} variant="outline" className="text-xs">
+                                        <span key={spec} className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">
                                           {spec}
-                                        </Badge>
+                                        </span>
                                       ))}
                                       {contractor.specialty.length > 2 && (
-                                        <Badge variant="outline" className="text-xs">
+                                        <span className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">
                                           +{contractor.specialty.length - 2}
-                                        </Badge>
+                                        </span>
                                       )}
                                     </div>
                                   </div>
@@ -509,7 +513,7 @@ export default function ContractorContractForm() {
                 )}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* วันที่เริ่มงาน */}
                 <FormField
                   control={form.control as any}
@@ -589,11 +593,11 @@ export default function ContractorContractForm() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* ประเภทการจ่ายเงิน */}
-                              <FormField
-                control={form.control as any}
-                name="paymentType"
+                <FormField
+                  control={form.control as any}
+                  name="paymentType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ประเภทการจ่ายเงิน *</FormLabel>
@@ -650,7 +654,7 @@ export default function ContractorContractForm() {
                   <Calculator className="h-4 w-4" />
                   <span className="font-medium">สรุปค่าใช้จ่าย</span>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   <div className="flex justify-between">
                     <span>ค่าแรง:</span>
                     <span className="font-medium">{formatCurrency(laborCost)}</span>
@@ -714,7 +718,7 @@ export default function ContractorContractForm() {
                         </Button>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         {/* ชื่อวัสดุ */}
                                                     <FormField
                               control={form.control as any}
@@ -920,11 +924,11 @@ export default function ContractorContractForm() {
           </Card>
 
           {/* ปุ่มบันทึก */}
-          <div className="flex items-center justify-end space-x-4">
-            <Button type="button" variant="outline" asChild>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-4">
+            <Button type="button" variant="outline" asChild className="order-2 sm:order-1">
               <Link to="/contractor-contracts">ยกเลิก</Link>
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting} className="order-1 sm:order-2">
               <Save className="h-4 w-4 mr-2" />
               {isSubmitting 
                 ? (isEditing ? 'กำลังอัปเดต...' : 'กำลังบันทึก...') 

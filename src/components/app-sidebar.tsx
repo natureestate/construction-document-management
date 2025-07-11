@@ -8,44 +8,73 @@ import {
   ClipboardCheck,
   LayoutDashboard,
   Settings,
-  HelpCircle,
   Building2,
-  Wrench
+  Wrench,
+  Calculator,
+  FileBarChart
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
+import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar"
 
+// ข้อมูลตัวอย่างสำหรับระบบจัดการเอกสารก่อสร้าง
 const data = {
   user: {
     name: "ผู้ดูแลระบบ",
     email: "admin@construction.com",
     avatar: "",
   },
+  teams: [
+    {
+      name: "บริษัท ก่อสร้าง จำกัด",
+      logo: Building2,
+      plan: "Enterprise",
+    },
+    {
+      name: "สำนักงานใหญ่",
+      logo: Building2,
+      plan: "Pro",
+    },
+    {
+      name: "สาขาภูเก็ต",
+      logo: Building2,
+      plan: "Starter",
+    },
+  ],
   navMain: [
     {
       title: "แดชบอร์ด",
       url: "/",
       icon: LayoutDashboard,
+      isActive: true,
     },
     {
       title: "จัดการลูกค้า",
       url: "/customers",
       icon: Users,
+      items: [
+        {
+          title: "รายการลูกค้า",
+          url: "/customers",
+        },
+        {
+          title: "เพิ่มลูกค้าใหม่",
+          url: "/customers/new",
+        },
+      ],
     },
     {
       title: "จัดการช่างรับเหมา",
-      url: "/contractors", 
+      url: "/contractors",
       icon: HardHat,
       items: [
         {
@@ -77,6 +106,16 @@ const data = {
       title: "จัดการวัสดุ",
       url: "/materials",
       icon: Package,
+      items: [
+        {
+          title: "รายการวัสดุ",
+          url: "/materials",
+        },
+        {
+          title: "เพิ่มวัสดุใหม่",
+          url: "/materials/new",
+        },
+      ],
     },
     {
       title: "ส่วนต่างวัสดุ",
@@ -109,63 +148,44 @@ const data = {
       ],
     },
   ],
-  navTemplates: [
+  projects: [
     {
-      title: "เทมเพลตเอกสาร",
+      name: "เทมเพลตเอกสาร",
       url: "/templates",
       icon: ClipboardCheck,
-      items: [
-        {
-          title: "รายการเทมเพลต",
-          url: "/templates",
-        },
-        {
-          title: "สร้างเทมเพลต",
-          url: "/templates/new",
-        },
-      ],
     },
-  ],
-  navSecondary: [
     {
-      title: "ตั้งค่าระบบ",
+      name: "รายงานการเงิน",
+      url: "/reports",
+      icon: FileBarChart,
+    },
+    {
+      name: "คำนวณต้นทุน",
+      url: "/calculator",
+      icon: Calculator,
+    },
+    {
+      name: "ตั้งค่าระบบ",
       url: "/settings",
       icon: Settings,
-    },
-    {
-      title: "ช่วยเหลือ",
-      url: "/help",
-      icon: HelpCircle,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="/">
-                <Building2 className="!size-5" />
-                <span className="text-base font-semibold">ระบบจัดการเอกสาร</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavMain items={data.navTemplates} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
