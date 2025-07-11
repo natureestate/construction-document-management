@@ -1,23 +1,18 @@
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+  Users,
+  HardHat,
+  FileText,
+  Package,
+  Receipt,
+  ClipboardCheck,
+  LayoutDashboard,
+  Settings,
+  HelpCircle,
+  Building2,
+  Wrench
+} from "lucide-react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -33,117 +28,99 @@ import {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "ผู้ดูแลระบบ",
+    email: "admin@construction.com",
+    avatar: "",
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
+      title: "แดชบอร์ด",
+      url: "/",
+      icon: LayoutDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      title: "จัดการลูกค้า",
+      url: "/customers",
+      icon: Users,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
+      title: "จัดการช่างรับเหมา",
+      url: "/contractors", 
+      icon: HardHat,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
+      title: "สัญญาจ้างช่าง",
+      url: "/contractor-contracts",
+      icon: FileText,
+      items: [
+        {
+          title: "รายการสัญญา",
+          url: "/contractor-contracts",
+        },
+        {
+          title: "สร้างสัญญาใหม่",
+          url: "/contractor-contracts/new",
+        },
+      ],
     },
     {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      title: "ส่วนต่างวัสดุ",
+      url: "/material-differences",
+      icon: Package,
+      items: [
+        {
+          title: "รายการส่วนต่าง",
+          url: "/material-differences",
+        },
+        {
+          title: "บันทึกใหม่",
+          url: "/material-differences/new",
+        },
+      ],
+    },
+    {
+      title: "การจ่ายเงินช่าง",
+      url: "/contractor-payments",
+      icon: Receipt,
+      items: [
+        {
+          title: "รายการจ่ายเงิน",
+          url: "/contractor-payments",
+        },
+        {
+          title: "บันทึกการจ่าย",
+          url: "/contractor-payments/new",
+        },
+      ],
     },
   ],
-  navClouds: [
+  navTemplates: [
     {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
+      title: "เทมเพลตเอกสาร",
+      url: "/templates",
+      icon: ClipboardCheck,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "รายการเทมเพลต",
+          url: "/templates",
         },
         {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
+          title: "สร้างเทมเพลต",
+          url: "/templates/new",
         },
       ],
     },
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
+      title: "ตั้งค่าระบบ",
+      url: "/settings",
+      icon: Settings,
     },
     {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      title: "ช่วยเหลือ",
+      url: "/help",
+      icon: HelpCircle,
     },
   ],
 }
@@ -158,9 +135,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+              <a href="/">
+                <Building2 className="!size-5" />
+                <span className="text-base font-semibold">ระบบจัดการเอกสาร</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -168,7 +145,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavMain items={data.navTemplates} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
