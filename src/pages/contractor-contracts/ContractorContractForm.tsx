@@ -84,7 +84,7 @@ export default function ContractorContractForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<ContractorContractFormData>({
-    resolver: zodResolver(contractorContractFormSchema),
+    resolver: zodResolver(contractorContractFormSchema) as any,
     defaultValues: {
       title: '',
       description: '',
@@ -294,7 +294,7 @@ export default function ContractorContractForm() {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-6">
           {/* ข้อมูลพื้นฐาน */}
           <Card>
             <CardHeader>
@@ -310,7 +310,7 @@ export default function ContractorContractForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* ชื่อสัญญา */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="title"
                   render={({ field }) => (
                     <FormItem>
@@ -328,7 +328,7 @@ export default function ContractorContractForm() {
 
                 {/* สถานะ */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="status"
                   render={({ field }) => (
                     <FormItem>
@@ -356,7 +356,7 @@ export default function ContractorContractForm() {
 
               {/* รายละเอียดสัญญา */}
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
@@ -391,7 +391,7 @@ export default function ContractorContractForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* ลูกค้า */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="customerId"
                   render={({ field }) => (
                     <FormItem>
@@ -428,7 +428,7 @@ export default function ContractorContractForm() {
 
                 {/* ช่างรับเหมา */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="contractorId"
                   render={({ field }) => (
                     <FormItem>
@@ -491,7 +491,7 @@ export default function ContractorContractForm() {
             <CardContent className="space-y-6">
               {/* สถานที่ทำงาน */}
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="workLocation"
                 render={({ field }) => (
                   <FormItem>
@@ -512,7 +512,7 @@ export default function ContractorContractForm() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* วันที่เริ่มงาน */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="startDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
@@ -529,7 +529,7 @@ export default function ContractorContractForm() {
 
                 {/* วันที่สิ้นสุดงาน */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="endDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
@@ -546,7 +546,7 @@ export default function ContractorContractForm() {
 
                 {/* จำนวนวันที่คาดว่าจะแล้วเสร็จ */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="estimatedDays"
                   render={({ field }) => (
                     <FormItem>
@@ -591,9 +591,9 @@ export default function ContractorContractForm() {
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* ประเภทการจ่ายเงิน */}
-                <FormField
-                  control={form.control}
-                  name="paymentType"
+                              <FormField
+                control={form.control as any}
+                name="paymentType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ประเภทการจ่ายเงิน *</FormLabel>
@@ -618,7 +618,7 @@ export default function ContractorContractForm() {
 
                 {/* ค่าแรง */}
                 <FormField
-                  control={form.control}
+                  control={form.control as any}
                   name="laborCost"
                   render={({ field }) => (
                     <FormItem>
@@ -716,9 +716,9 @@ export default function ContractorContractForm() {
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                         {/* ชื่อวัสดุ */}
-                        <FormField
-                          control={form.control}
-                          name={`materials.${index}.name`}
+                                                    <FormField
+                              control={form.control as any}
+                              name={`materials.${index}.name`}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>ชื่อวัสดุ *</FormLabel>
@@ -731,9 +731,9 @@ export default function ContractorContractForm() {
                         />
 
                         {/* จำนวน */}
-                        <FormField
-                          control={form.control}
-                          name={`materials.${index}.quantity`}
+                                                    <FormField
+                              control={form.control as any}
+                              name={`materials.${index}.quantity`}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>จำนวน *</FormLabel>
@@ -757,9 +757,9 @@ export default function ContractorContractForm() {
                         />
 
                         {/* หน่วย */}
-                        <FormField
-                          control={form.control}
-                          name={`materials.${index}.unit`}
+                                                    <FormField
+                              control={form.control as any}
+                              name={`materials.${index}.unit`}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>หน่วย *</FormLabel>
@@ -783,9 +783,9 @@ export default function ContractorContractForm() {
                         />
 
                         {/* ราคาต่อหน่วย */}
-                        <FormField
-                          control={form.control}
-                          name={`materials.${index}.unitPrice`}
+                                                    <FormField
+                              control={form.control as any}
+                              name={`materials.${index}.unitPrice`}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>ราคาต่อหน่วย *</FormLabel>
@@ -809,9 +809,9 @@ export default function ContractorContractForm() {
                         />
 
                         {/* ราคารวม */}
-                        <FormField
-                          control={form.control}
-                          name={`materials.${index}.totalPrice`}
+                                                    <FormField
+                              control={form.control as any}
+                              name={`materials.${index}.totalPrice`}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel>ราคารวม</FormLabel>
@@ -828,9 +828,9 @@ export default function ContractorContractForm() {
                       </div>
 
                       {/* หมายเหตุ */}
-                      <FormField
-                        control={form.control}
-                        name={`materials.${index}.note`}
+                                                <FormField
+                            control={form.control as any}
+                            name={`materials.${index}.note`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>หมายเหตุ</FormLabel>
@@ -859,7 +859,7 @@ export default function ContractorContractForm() {
             <CardContent className="space-y-6">
               {/* ข้อกำหนดงาน */}
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="workSpecification"
                 render={({ field }) => (
                   <FormItem>
@@ -879,7 +879,7 @@ export default function ContractorContractForm() {
 
               {/* เงื่อนไขการจ่ายเงิน */}
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="terms"
                 render={({ field }) => (
                   <FormItem>
@@ -899,7 +899,7 @@ export default function ContractorContractForm() {
 
               {/* หมายเหตุ */}
               <FormField
-                control={form.control}
+                control={form.control as any}
                 name="notes"
                 render={({ field }) => (
                   <FormItem>
