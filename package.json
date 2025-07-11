@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run kill-port && vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "restart": "npm run kill-port && npm run dev",
+    "kill-port": "lsof -ti:3800 | xargs kill -9 2>/dev/null || true",
+    "check-port": "lsof -i :3800"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
