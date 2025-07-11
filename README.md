@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
+# ระบบจัดการสินค้าพรีคาสต์ (Precast Inventory Management System)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ระบบบริหารจัดการสินค้าพรีคาสต์ที่พัฒนาด้วย React + TypeScript + Vite สำหรับบริษัทผลิตภัณฑ์คอนกรีตพรีคาสต์
 
-Currently, two official plugins are available:
+## ฟีเจอร์หลัก
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📋 ระบบจัดการลูกค้า (Customer Management)
+- 📦 ระบบจัดการวัสดุและสินค้าคงคลัง (Material Management)
+- 📊 ระบบบันทึกส่วนต่างวัสดุ (Material Difference Tracking)
+- 💰 ระบบจ่ายเงินผู้รับเหมา (Contractor Payment System)
+- 📄 ระบบพิมพ์และส่งออกเอกสาร PDF (PDF Export System)
+- 📱 Responsive Design สำหรับการใช้งานบนมือถือ
 
-## Expanding the ESLint configuration
+## เทคโนโลยีที่ใช้
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 18 + TypeScript
+- **UI Framework**: Tailwind CSS + shadcn/ui
+- **Build Tool**: Vite
+- **Form Management**: React Hook Form + Zod
+- **PDF Generation**: @pdfme/generator, jsPDF, html2canvas
+- **Icons**: Lucide React, Tabler Icons
+- **State Management**: React Hooks + Local Storage
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## การติดตั้งและเริ่มใช้งาน
+
+### ข้อกำหนดระบบ
+- Node.js 18+ 
+- npm
+
+### การติดตั้ง
+
+```bash
+# Clone โปรเจกต์
+git clone <repository-url>
+cd docapp
+
+# ติดตั้ง dependencies
+npm install
+
+# เริ่มเซิร์ฟเวอร์พัฒนา (development server)
+npm run dev
+
+# เข้าใช้งานที่ http://localhost:3800
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### คำสั่งสำคัญ
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# พัฒนา (Development)
+npm run dev
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# สร้างโปรเจกต์สำหรับ production
+npm run build
+
+# ตรวจสอบโค้ด (Linting)
+npm run lint
+
+# ดูตัวอย่าง production build
+npm run preview
 ```
+
+## โครงสร้างโปรเจกต์
+
+```
+src/
+├── components/     # UI Components ที่ใช้ร่วมกัน
+├── hooks/         # Custom React Hooks
+├── lib/           # Utilities และ Helper functions
+├── pages/         # หน้าต่างๆ ของแอปพลิเคชัน
+├── types/         # TypeScript Type Definitions
+└── routes.tsx     # การตั้งค่า Routing
+```
+
+## การพัฒนา
+
+โปรเจกต์นี้ใช้:
+- **TypeScript** สำหรับ type safety
+- **ESLint** สำหรับ code quality
+- **Tailwind CSS** สำหรับ styling
+- **Vite** สำหรับ fast development และ building
+
+สำหรับข้อมูลเพิ่มเติมเกี่ยวกับการตั้งค่า ESLint และการพัฒนา โปรดดูเอกสารของ [Vite](https://vitejs.dev/) และ [React](https://react.dev/)
