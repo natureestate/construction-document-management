@@ -136,18 +136,16 @@ export const contractorContractFormSchema = z.object({
     .number()
     .min(0, 'ค่าวัสดุต้องไม่ติดลบ')
     .max(9999999, 'ค่าวัสดุต้องไม่เกิน 9,999,999')
-    .optional()
     .default(0),
   
   totalCost: z
     .number()
     .min(0, 'ราคารวมต้องไม่ติดลบ')
-    .optional(), // คำนวณอัตโนมัติ
+    .default(0), // คำนวณอัตโนมัติ
   
   // วัสดุ
   materials: z
     .array(contractMaterialSchema)
-    .optional()
     .default([]),
   
   // ข้อกำหนดและเงื่อนไข

@@ -95,6 +95,8 @@ export default function ContractorContractForm() {
       endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 วันจากวันนี้
       paymentType: 'fixed',
       laborCost: 0,
+      materialCost: 0,
+      totalCost: 0,
       materials: [],
       workSpecification: '',
       terms: '',
@@ -125,6 +127,8 @@ export default function ContractorContractForm() {
           estimatedDays: contract.estimatedDays,
           paymentType: contract.paymentType,
           laborCost: contract.laborCost,
+          materialCost: contract.materialCost || 0,
+          totalCost: contract.totalCost || 0,
           materials: contract.materials || [],
           workSpecification: contract.workSpecification || '',
           terms: contract.terms || '',
