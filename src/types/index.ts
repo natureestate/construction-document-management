@@ -63,41 +63,82 @@ export interface DocumentTemplate {
   id: string
   name: string
   description?: string
-  category: 'contract' | 'payment' | 'delivery' | 'memo' | 'other'
+  category: 'contract' | 'payment' | 'delivery' | 'completion' | 'progress' | 'memo' | 'invoice' | 'receipt' | 'quotation' | 'other'
   content: string // HTML template content
   variables: TemplateVariable[] // ตัวแปรที่ใช้ในเทมเพลต
+  // PDFme template data
+  pdfmeTemplate?: {
+    basePdf?: string // Base64 encoded PDF
+    schemas: any[] // PDFme schemas
+    sampleData?: Record<string, any> // ข้อมูลตัวอย่าง
+  }
+  // การตั้งค่าเทมเพลต
+  settings?: {
+    pageSize: 'A4' | 'A3' | 'Letter' | 'Legal'
+    orientation: 'portrait' | 'landscape'
+    margins: {
+      top: number
+      right: number
+      bottom: number
+      left: number
+    }
+    fontSize: number
+    fontFamily: string
+    watermark?: {
+      enabled: boolean
+      text?: string
+      opacity: number
+      rotation: number
+    }
+  }
   isActive: boolean
+  tags?: string[]
+  notes?: string
   createdAt: Date
   updatedAt: Date
 }
 
 // ตัวแปรในเทมเพลต
 export interface TemplateVariable {
+  id?: string
   name: string
   label: string
-  type: 'text' | 'number' | 'date' | 'boolean' | 'select'
+  type: 'text' | 'number' | 'date' | 'currency' | 'boolean' | 'image' | 'table' | 'signature' | 'barcode' | 'qrcode'
   required: boolean
-  options?: string[] // สำหรับ type: 'select'
   defaultValue?: any
+  options?: string[] // สำหรับ select options
+  validation?: {
+    minLength?: number
+    maxLength?: number
+    min?: number
+    max?: number
+    pattern?: string
+    format?: string // เช่น 'email', 'phone', 'url'
+  }
+  description?: string
 }
 
 // สัญญาจ้างช่างรับเหมา
 export interface ContractorContract {
   id: string
-  contractNumber: string
+  title: string
+  description?: string
   customerId: string
   projectId?: string
   contractorId: string
-  workType: string // ประเภทงาน เช่น "หลังคา", "ทาสี"
-  workDescription: string
   workLocation: string
-  contractValue: number
   startDate: Date
   endDate: Date
-  paymentTerms: string
-  materials: ContractMaterial[] // วัสดุที่รวมในสัญญา
-  additionalTerms?: string
-  status: 'draft' | 'active' | 'completed' | 'cancelled'
+  estimatedDays?: number
+  paymentType: 'fixed' | 'hourly' | 'daily' | 'piece_work'
+  laborCost: number
+  materialCost: number
+  totalCost: number
+  materials: ContractMaterial[]
+  workSpecification?: string
+  terms?: string
+  status: 'draft' | 'pending' | 'approved' | 'in_progress' | 'completed' | 'cancelled'
+  notes?: string
   templateId?: string
   createdAt: Date
   updatedAt: Date
@@ -105,13 +146,13 @@ export interface ContractorContract {
 
 // วัสดุในสัญญา
 export interface ContractMaterial {
-  materialId: string
-  materialName: string
+  id?: string
+  name: string
   quantity: number
   unit: string
-  pricePerUnit: number
-  totalPrice: number
-  isIncluded: boolean // รวมในราคาสัญญาหรือไม่
+  unitPrice: number
+  totalPrice?: number
+  note?: string
 }
 
 // บันทึกส่วนต่างวัสดุ

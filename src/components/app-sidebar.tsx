@@ -47,6 +47,16 @@ const data = {
       title: "จัดการช่างรับเหมา",
       url: "/contractors", 
       icon: HardHat,
+      items: [
+        {
+          title: "รายการช่างรับเหมา",
+          url: "/contractors",
+        },
+        {
+          title: "เพิ่มช่างรับเหมา",
+          url: "/contractors/new",
+        },
+      ],
     },
     {
       title: "สัญญาจ้างช่าง",
@@ -64,9 +74,14 @@ const data = {
       ],
     },
     {
+      title: "จัดการวัสดุ",
+      url: "/materials",
+      icon: Package,
+    },
+    {
       title: "ส่วนต่างวัสดุ",
       url: "/material-differences",
-      icon: Package,
+      icon: Wrench,
       items: [
         {
           title: "รายการส่วนต่าง",

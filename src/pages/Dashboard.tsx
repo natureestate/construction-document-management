@@ -11,9 +11,13 @@ import {
   Receipt
 } from 'lucide-react'
 import { useCustomers } from '@/hooks/use-customers'
+import { useContractors } from '@/hooks/use-contractors'
+import { useContractorContracts } from '@/hooks/use-contractor-contracts'
 
 export default function Dashboard() {
-  const { customers, loading } = useCustomers()
+  const { customers, loading: customersLoading } = useCustomers()
+  const { getContractorStats, loading: contractorsLoading } = useContractors()
+  const { getContractStats, loading: contractsLoading } = useContractorContracts()
 
   // สถิติจากข้อมูลลูกค้า
   const customerStats = {
@@ -21,6 +25,12 @@ export default function Dashboard() {
     individual: customers.filter(c => c.type === 'individual').length,
     corporate: customers.filter(c => c.type === 'corporate').length
   }
+
+  // สถิติจากข้อมูลช่างรับเหมา
+  const contractorStats = getContractorStats()
+
+  // สถิติจากข้อมูลสัญญาช่าง
+  const contractStats = getContractStats()
 
   return (
     <div className="space-y-6">
@@ -40,10 +50,10 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {loading ? '...' : customerStats.total}
+              {customersLoading ? '...' : customerStats.total}
             </div>
             <p className="text-xs text-muted-foreground">
-              {loading ? 'กำลังโหลด...' : `${customerStats.individual} บุคคล, ${customerStats.corporate} นิติบุคคล`}
+              {customersLoading ? 'กำลังโหลด...' : `${customerStats.individual} บุคคล, ${customerStats.corporate} นิติบุคคล`}
             </p>
           </CardContent>
         </Card>
@@ -54,9 +64,11 @@ export default function Dashboard() {
             <HardHat className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">
+              {contractorsLoading ? '...' : contractorStats.active}
+            </div>
             <p className="text-xs text-muted-foreground">
-              ช่างที่พร้อมทำงาน
+              {contractorsLoading ? 'กำลังโหลด...' : `${contractorStats.active} พร้อมทำงาน, ${contractorStats.inactive} หยุดรับงาน`}
             </p>
           </CardContent>
         </Card>
@@ -67,9 +79,11 @@ export default function Dashboard() {
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">0</div>
+            <div className="text-2xl font-bold">
+              {contractsLoading ? '...' : contractStats.inProgress}
+            </div>
             <p className="text-xs text-muted-foreground">
-              สัญญาที่ยังไม่เสร็จสิ้น
+              {contractsLoading ? 'กำลังโหลด...' : `${contractStats.pending} รออนุมัติ, ${contractStats.approved} อนุมัติแล้ว`}
             </p>
           </CardContent>
         </Card>
@@ -80,9 +94,21 @@ export default function Dashboard() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">฿0</div>
+            <div className="text-2xl font-bold">
+              {contractsLoading ? '...' : new Intl.NumberFormat('th-TH', {
+                style: 'currency',
+                currency: 'THB',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+              }).format(contractStats.totalValue)}
+            </div>
             <p className="text-xs text-muted-foreground">
-              มูลค่ารวมทั้งหมด
+              {contractsLoading ? 'กำลังโหลด...' : `เสร็จแล้ว ${new Intl.NumberFormat('th-TH', {
+                style: 'currency',
+                currency: 'THB',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+              }).format(contractStats.completedValue)}`}
             </p>
           </CardContent>
         </Card>
@@ -114,7 +140,7 @@ export default function Dashboard() {
                 <div>
                   <CardTitle>จัดการช่างรับเหมา</CardTitle>
                   <CardDescription>
-                    ข้อมูลช่างและความเชี่ยวชาญ
+                    ข้อมูลช่างและความเชี่ยวชาญ ({contractorStats.total} รายการ)
                   </CardDescription>
                 </div>
               </div>
@@ -130,7 +156,7 @@ export default function Dashboard() {
                 <div>
                   <CardTitle>สัญญาจ้างช่าง</CardTitle>
                   <CardDescription>
-                    สร้างและจัดการสัญญาจ้างงาน
+                    สร้างและจัดการสัญญาจ้างงาน ({contractStats.total} รายการ)
                   </CardDescription>
                 </div>
               </div>
@@ -196,7 +222,7 @@ export default function Dashboard() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {loading ? (
+          {customersLoading ? (
             <div className="text-center py-8 text-muted-foreground">
               กำลังโหลดข้อมูล...
             </div>
