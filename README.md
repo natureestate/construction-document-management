@@ -47,7 +47,12 @@ npm run dev
 
 ```bash
 # พัฒนา (Development)
-npm run dev
+npm run dev           # เริ่มเซิร์ฟเวอร์พัฒนา (หยุด process เก่าอัตโนมัติ)
+npm run restart       # หยุดเซิร์ฟเวอร์เก่าแล้วเริ่มใหม่
+
+# การจัดการ Port และ Process
+npm run kill-port     # หยุด process ที่ใช้ port 3800
+npm run check-port    # ตรวจสอบ process ที่ใช้ port 3800
 
 # สร้างโปรเจกต์สำหรับ production
 npm run build
@@ -57,6 +62,21 @@ npm run lint
 
 # ดูตัวอย่าง production build
 npm run preview
+```
+
+### การแก้ปัญหา Port
+
+หากพบปัญหา "EADDRINUSE" หรือ port 3800 ถูกใช้งานอยู่:
+
+```bash
+# ตรวจสอบ process ที่ใช้ port
+npm run check-port
+
+# หยุด process ที่ใช้ port 3800
+npm run kill-port
+
+# หรือใช้คำสั่ง restart ที่จะทำทั้งสองอย่างอัตโนมัติ
+npm run restart
 ```
 
 ## โครงสร้างโปรเจกต์
