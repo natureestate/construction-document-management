@@ -382,4 +382,7 @@ export function MaterialDifferenceList() {
       )}
     </div>
   )
-} 
+}
+
+// Export default เพื่อให้ import ได้เป็น default
+export default MaterialDifferenceList
