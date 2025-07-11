@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -326,7 +326,7 @@ export default function CustomerForm() {
                         <Input
                           placeholder="ระบุเลขประจำตัวผู้เสียภาษี 13 หลัก"
                           {...field}
-                          onChange={(e) => {
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             const value = e.target.value.replace(/[^\d]/g, '')
                             field.onChange(value)
                           }}
@@ -388,7 +388,7 @@ export default function CustomerForm() {
                         <Input
                           placeholder="08X-XXX-XXXX หรือ 02-XXX-XXXX"
                           {...field}
-                          onChange={(e) => {
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             // อนุญาตเฉพาะตัวเลขและเครื่องหมาย
                             const value = e.target.value.replace(/[^0-9\-\s\+\(\)]/g, '')
                             field.onChange(value)

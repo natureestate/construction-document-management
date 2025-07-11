@@ -13,7 +13,7 @@ import TemplateList from './pages/templates/TemplateList'
 import TemplateForm from './pages/templates/TemplateForm'
 import ContractorPaymentList from './pages/payments/ContractorPaymentList'
 import ContractorPaymentForm from './pages/payments/ContractorPaymentForm'
-import { MaterialList } from './pages/materials/MaterialList'
+// import { MaterialList } from './pages/materials/MaterialList'
 
 export const router = createBrowserRouter([
   {
@@ -76,24 +76,15 @@ export const router = createBrowserRouter([
         path: 'material-differences/:id/edit',
         element: <MaterialDifferenceForm />
       },
-      // วัสดุ
-      {
-        path: 'materials',
-        element: <MaterialList />
-      },
       // เทมเพลต
-              {
-          path: 'templates',
-          element: <TemplateList />
-        },
-        {
-          path: 'templates/new',
-          element: <TemplateForm />
-        },
-        {
-          path: 'templates/:id/edit',
-          element: <TemplateForm />
-        },
+      {
+        path: 'templates',
+        element: <TemplateList />
+      },
+      {
+        path: 'templates/new',
+        element: <TemplateForm />
+      },
       {
         path: 'templates/:id/edit',
         element: <TemplateForm />
